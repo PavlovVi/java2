@@ -1,0 +1,39 @@
+import java.util.*;
+
+public class Task {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+       
+        int n = scanner.nextInt();
+        scanner.nextLine();
+        
+        
+        List<String> book = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            book.add(scanner.nextLine());
+        }
+        
+        
+        int m = scanner.nextInt();
+        scanner.nextLine();
+        
+        
+        Map<String, String> replacements = new HashMap<>();
+        for (int i = 0; i < m; i++) {
+            String[] tokens = scanner.nextLine().split(" - ");
+            replacements.put(tokens[0], tokens[1]);
+        }
+        
+        
+        for (String recipe : book) {
+            for (Map.Entry<String, String> entry : replacements.entrySet()) {
+                String product = entry.getKey();
+                String replacement = entry.getValue();
+                recipe = recipe.replaceAll("\\b" + product + "\\b", replacement);
+                recipe = recipe.replaceAll("\\b" + Character.toUpperCase(product.charAt(0)) + product.substring(1) + "\\b", Character.toUpperCase(replacement.charAt(0)) + replacement.substring(1));
+            }
+            System.out.println(recipe);
+        }
+    }
+}
